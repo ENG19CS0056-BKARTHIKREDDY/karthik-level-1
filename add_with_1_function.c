@@ -7,11 +7,11 @@ return x+y;
 int main()
 {
 int a,b,s;
-printf(“enter the number 1:”);
-scanf(“%d”,&a);
-printf(“enter the number 2:”);
-scanf(“%d”,&b);
+printf("enter the number 1:");
+scanf("%d",&a);
+printf("enter the number 2:");
+scanf("%d",&b);
 s=sum(a,b);
-printf(“sum of %d” And %d Is :%d”,a,b,s);
+printf("sum of %d And %d Is :%d",a,b,s);
 return 0;
 }
