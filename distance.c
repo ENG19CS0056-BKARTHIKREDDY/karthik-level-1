@@ -21,5 +21,6 @@ int main()
     x2=input();
     y2=input();
     d=distance(x1,y1,x2,y2);
+    printf("the distance is %f",d);
     return 0;
 }
