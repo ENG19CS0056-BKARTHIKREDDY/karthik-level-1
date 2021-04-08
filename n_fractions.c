@@ -1,51 +1,81 @@
 //WAP to find the sum of n fractions.
-struct fract
+#include<stdio.h>
+struct fraction
 {
-    int  num;
-    int  deno;
+    int a;
+    int b;
 };
-typedef struct fract fraction;
-fraction input()
+typedef struct fraction Frac;
+
+Frac input()
 {
-    fraction a;
-    printf("Enter the numerator\n");
-    scanf("%d",&a.num);
-    printf("Enter the denominator\n");
-    scanf("%d",&a.deno);
-    return a;
+    Frac f;
+    printf("Enter the numerator:-\n");
+    scanf("%d",&f.a);
+    printf("Enter the denominator:-\n");
+    scanf("%d",&f.b);
+    return f;
 }
-fraction sum(fraction a,fraction b)
+
+int findgcd(int num1,int num2)
 {
-    fraction res;
-    if(a.deno==b.deno)
+    int div;
+    for(int i=1;i<=num1 && i<=num2;i++)
     {
-        res.deno=a.deno;
-        res.num=a.num+b.num;
+        if(num1%i==0 && num2%i==0)
+        div=i;
     }
-    else
-    {
-        res.deno=a.deno*b.deno;
-        res.num=(a.num*b.deno)+(b.num*a.deno);
-    }
-    return res;
+    return div;
 }
+
+Frac sum(int n,Frac arr[])
+{
+    int divisor;
+    Frac add,simplified;
+    add.a=0;
+    add.b=1;
+    for(int i=0;i<n;i++)
+    {
+        add.a=((arr[i].a)(add.b))+((add.a)(arr[i].b));
+        add.b=((add.b)*(arr[i].b));
+    }    
+    divisor=findgcd(add.a,add.b);
+    simplified.a=add.a/divisor;
+    simplified.b=add.b/divisor;
+    return simplified;
+}
+
+void input_n_fraction(int n,Frac arr[])
+{
+	for(int i=0;i<n;i++)
+    {
+	    arr[i]=input();
+    }
+}
+
+void output(int n,Frac arr[],Frac result)
+{
+    for(int i=0;i<n;i++)
+    {
+        if(i<n-1)
+        {
+            printf("%d/%d+ ",arr[i].a,arr[i].b);
+        }
+        else
+        {
+            printf("%d/%d=%d/%d",arr[i].a,arr[i].b,result.a,result.b);
+        }
+    }
+    
+}
+
 int main()
 {
     int n;
-    printf("Enter the number of fractions\n");
+    printf("enter the no:of fractions:-");
     scanf("%d",&n);
-    fraction c,a[n];
-    c.num=0;
-    c.deno=1;
-    for(int i=0;i<n;i++)
-    {
-        printf("For fraction %d ",(i+1));
-        a[i]=input();
-    }
-    for(int i=0;i<n;i++)
-    {
-        c=sum(c,a[i]);
-    }
-    printf("The final sum is %d/%d which is %.2f %",c.num,c.deno,(c.num/(1.0*c.deno))*100);
-    return 0;
+    Frac arr[n];
+    input_n_fraction(n,arr);
+    Frac result=sum(n,arr);
+    output(n,arr,result);
 }
