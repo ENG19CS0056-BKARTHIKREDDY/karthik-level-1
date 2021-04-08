@@ -1,51 +1,41 @@
 //WAP to find the sum of two fractions.
 #include<stdio.h>
-#include<math.h>
-struct fraction
+struct fract
 {
-int a;
-int b;
+int  num;
+int  deno;
 };
-typedef struct fraction Frac;
-Frac input()
+typedef struct fract fraction;
+fraction input()
 {
-Frac f;
-printf("enter the numerator-\n");
-scanf("%d",&f.a);
-printf("enter the denominator-\n");
-scanf("%d",&f.b);
-return f;
+fraction a;
+printf("Enter the numerator\n");
+scanf("%d",&a.num);
+printf("Enter the denominator\n");
+scanf("%d",&a.deno);
+return a;
 }
-int findgcd(int num1, int num2)
+fraction sum(fraction a,fraction b)
 {
-int div;
-for(int i=1;i<=num1&&i<=num2;i++)
+fraction res;
+if(a.deno==b.deno)
 {
-if(num1%i==0&&num2%i==0)
-div=i;
+res.deno=a.deno;
+res.num=a.num+b.num;
 }
-return div;
-}
-Frac sum(Frac frac1, Frac frac2)
+else 
 {
-int divisor;
-Frac add,simplified;
-add.a=((frac1.a)*(frac2.b))+((frac2.a)*(frac1.b));
-add.b=((frac1.b)*(frac2.b));
-divisor=findgcd(add.a,add.b);
-simplified.a=add.a/divisor;
-simplified.b=add.b/divisor;
-return simplified;
+res.deno=a.deno*b.deno;
+res.num=(a.num*b.deno)+(b.num*a.deno);
 }
-void output(Frac frac1, Frac frac2, Frac result)
-{
-printf("The sum of %d/%d+%d/%d=%d/%d",frac1.a,frac2.a,frac2.b,result.a,result.b);
+return res;
 }
 int main()
 {
-Frac frac1,frac2,result;
-frac1=input();
-frac2=input();
-result=sum(frac1,frac2);
-output(frac1,frac2,result);
+fraction a,b,c;
+a=input();
+b=input();
+c=sum(a,b);
+printf("The final sum is %d/%d",c.num,c.deno);
+return 0;
 }
